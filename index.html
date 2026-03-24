@@ -8,6 +8,22 @@
 :root{--bg:#0a0f1e;--bg2:#0e1526;--card:#111827;--border:#1e2d4a;--accent:#00d4aa;--accent2:#3b82f6;--accent3:#f59e0b;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;--subtle:#94a3b8;--green:#22c55e;--radius:12px;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;padding:0 0 60px;}
+.login-overlay{position:fixed;inset:0;width:100%;height:100%;background:#0a0f1e;display:flex;align-items:center;justify-content:center;z-index:99999;overflow:hidden;}
+.login-overlay.hidden{display:none;}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px 48px;width:100%;max-width:400px;position:relative;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.6);}
+.login-box::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,212,170,.12),transparent 70%);pointer-events:none;}
+.login-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;color:#fff;letter-spacing:-.5px;margin-bottom:4px;}
+.login-sub{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:32px;}
+.login-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block;}
+.login-input{width:100%;background:#0a0f1e;border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;outline:none;transition:border .2s;margin-bottom:16px;box-sizing:border-box;}
+.login-input:focus{border-color:var(--accent);}
+.login-btn{width:100%;background:var(--accent);color:#0a0f1e;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;border:none;border-radius:8px;padding:13px;cursor:pointer;margin-top:8px;transition:opacity .2s;}
+.login-btn:hover{opacity:.85;}
+.login-error{color:var(--danger);font-size:11px;margin-top:12px;text-align:center;min-height:16px;}
+.login-divider{height:1px;background:var(--border);margin:24px 0;}
+.login-footer{font-size:10px;color:var(--muted);text-align:center;letter-spacing:1px;}
+#dre-content{display:none;}
+#dre-content.visible{display:block;}
 header{background:linear-gradient(135deg,#0a0f1e,#0d1e3d,#091529);border-bottom:1px solid var(--border);padding:32px 48px 28px;position:relative;overflow:hidden;}
 header::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,.08),transparent 70%);pointer-events:none;}
 .header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;}
@@ -97,42 +113,12 @@ footer{text-align:center;padding:24px;font-size:10px;color:var(--muted);border-t
 @media(max-width:640px){header{padding:18px 16px;}main{padding:12px;gap:14px;}.kpi-value{font-size:16px;}.dre-table td{padding:7px 12px;font-size:11px;}.banco-grid{grid-template-columns:1fr;}}
 
 /* ─── LOGIN ──────────────────────────────────────── */
-#login-screen{position:fixed;inset:0;background:linear-gradient(135deg,#0a0f1e 0%,#0d1e3d 50%,#091529 100%);display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeIn .4s ease;}
-#login-screen.hidden{display:none;}
-.login-box{background:#111827;border:1px solid #1e2d4a;border-radius:16px;padding:48px 40px;width:100%;max-width:400px;position:relative;overflow:hidden;}
-.login-box::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(0,212,170,.1),transparent 70%);pointer-events:none;}
-.login-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#fff;letter-spacing:-.5px;text-align:center;margin-bottom:4px;}
-.login-sub{font-size:11px;color:#64748b;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:36px;}
-.login-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#64748b;margin-bottom:8px;display:block;}
-.login-input{width:100%;background:#0a0f1e;border:1px solid #1e2d4a;border-radius:8px;padding:12px 16px;color:#e2e8f0;font-family:'DM Mono',monospace;font-size:13px;outline:none;transition:border .2s;box-sizing:border-box;margin-bottom:20px;}
-.login-input:focus{border-color:#00d4aa;}
-.login-input::placeholder{color:#374151;}
-.login-btn{width:100%;background:linear-gradient(135deg,#00d4aa,#059669);border:none;border-radius:8px;padding:14px;color:#0a0f1e;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:.5px;cursor:pointer;transition:opacity .2s;margin-top:4px;}
-.login-btn:hover{opacity:.9;}
-.login-btn:active{opacity:.8;}
-.login-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 14px;color:#ef4444;font-size:11px;text-align:center;margin-top:16px;display:none;}
-.login-error.show{display:block;}
-.login-footer{text-align:center;font-size:10px;color:#374151;margin-top:28px;letter-spacing:1px;}
-#dre-content{display:none;}
-#dre-content.visible{display:block;}
+
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-8px);}40%,80%{transform:translateX(8px);}}
 .shake{animation:shake .4s ease;}
 
-.login-overlay{position:fixed;inset:0;background:#0a0f1e;display:flex;align-items:center;justify-content:center;z-index:9999;}
-.login-overlay.hidden{display:none;}
-.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px 48px;width:100%;max-width:400px;position:relative;overflow:hidden;}
-.login-box::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,212,170,.10),transparent 70%);pointer-events:none;}
-.login-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:#fff;letter-spacing:-.5px;margin-bottom:4px;}
-.login-sub{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:32px;}
-.login-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block;}
-.login-input{width:100%;background:#0a0f1e;border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;outline:none;transition:border .2s;margin-bottom:16px;}
-.login-input:focus{border-color:var(--accent);}
-.login-btn{width:100%;background:var(--accent);color:#0a0f1e;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;border:none;border-radius:8px;padding:12px;cursor:pointer;margin-top:8px;transition:opacity .2s;}
-.login-btn:hover{opacity:.85;}
-.login-error{color:var(--danger);font-size:11px;margin-top:10px;text-align:center;min-height:16px;}
-.login-divider{height:1px;background:var(--border);margin:24px 0;}
-.login-footer{font-size:10px;color:var(--muted);text-align:center;letter-spacing:1px;}
+
 </style>
 </head>
 <body>
@@ -150,69 +136,7 @@ footer{text-align:center;padding:24px;font-size:10px;color:var(--muted);border-t
     <div class="login-footer">REDEMETRO TELECOMUNICAÇÕES LTDA</div>
   </div>
 </div>
-<script>
-function doLogin(){
-  var u=document.getElementById('loginUser').value.trim();
-  var p=document.getElementById('loginPass').value;
-  if(u==='DRESIM' && p==='Sim2026*'){
-    document.getElementById('loginOverlay').classList.add('hidden');
-    document.getElementById('loginError').textContent='';
-  } else {
-    document.getElementById('loginError').textContent='Login ou senha incorretos.';
-    document.getElementById('loginPass').value='';
-    document.getElementById('loginPass').focus();
-  }
-}
-document.addEventListener('keydown',function(e){
-  if(e.key==='Enter' && !document.getElementById('loginOverlay').classList.contains('hidden')){
-    doLogin();
-  }
-});
-</script>
 
-
-<!-- TELA DE LOGIN -->
-<div id="login-screen">
-  <div class="login-box">
-    <div class="login-logo">SIM.DIGITAL</div>
-    <div class="login-sub">DRE Gerencial — Acesso Restrito</div>
-    <label class="login-label" for="inp-login">Login</label>
-    <input class="login-input" id="inp-login" type="text" placeholder="Digite seu login" autocomplete="off" spellcheck="false">
-    <label class="login-label" for="inp-senha">Senha</label>
-    <input class="login-input" id="inp-senha" type="password" placeholder="Digite sua senha">
-    <button class="login-btn" onclick="tentarLogin()">ENTRAR</button>
-    <div class="login-error" id="login-error">Login ou senha incorretos. Tente novamente.</div>
-    <div class="login-footer">REDEMETRO TELECOMUNICAÇÕES LTDA</div>
-  </div>
-</div>
-
-<script>
-function tentarLogin() {
-  var login = document.getElementById('inp-login').value.trim().toUpperCase();
-  var senha = document.getElementById('inp-senha').value;
-  var box   = document.querySelector('.login-box');
-  var erro  = document.getElementById('login-error');
-
-  if (login === 'DRESIM' && senha === '__SENHA__') {
-    document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('dre-content').classList.add('visible');
-  } else {
-    erro.classList.add('show');
-    box.classList.add('shake');
-    setTimeout(function(){ box.classList.remove('shake'); }, 400);
-    document.getElementById('inp-senha').value = '';
-    document.getElementById('inp-senha').focus();
-  }
-}
-// Permitir Enter nos campos
-document.addEventListener('DOMContentLoaded', function(){
-  ['inp-login','inp-senha'].forEach(function(id){
-    document.getElementById(id).addEventListener('keydown', function(e){
-      if(e.key === 'Enter') tentarLogin();
-    });
-  });
-});
-</script>
 
 <!-- CONTEÚDO DA DRE -->
 <div id="dre-content">
@@ -423,6 +347,25 @@ document.addEventListener('DOMContentLoaded', function(){
 <footer>
   Dashboard gerado automaticamente &nbsp;·&nbsp; Dados consolidados Santander + Sicredi &nbsp;·&nbsp; SIM.DIGITAL — REDEMETRO TELECOMUNICAÇÕES LTDA
 </footer>
-</div>
+</div><!-- /dre-content -->
+<script>
+function doLogin(){
+  var u = document.getElementById('loginUser').value.trim();
+  var p = document.getElementById('loginPass').value;
+  if(u === 'DRESIM' && p === 'Sim2026*'){
+    document.getElementById('loginOverlay').classList.add('hidden');
+    document.getElementById('dre-content').classList.add('visible');
+  } else {
+    document.getElementById('loginError').textContent = 'Login ou senha incorretos.';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+  }
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && !document.getElementById('loginOverlay').classList.contains('hidden')){
+    doLogin();
+  }
+});
+</script>
 </body>
 </html>
