@@ -8,6 +8,24 @@
 :root{--bg:#0a0f1e;--bg2:#0e1526;--card:#111827;--border:#1e2d4a;--accent:#00d4aa;--accent2:#3b82f6;--accent3:#f59e0b;--danger:#ef4444;--text:#e2e8f0;--muted:#64748b;--subtle:#94a3b8;--green:#22c55e;--radius:12px;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;padding:0 0 60px;}
+.login-container{position:fixed;top:0;left:0;width:100%;height:100vh;background:linear-gradient(135deg,#0a0f1e,#0d1e3d,#091529);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;visibility:visible;transition:opacity .3s ease,visibility .3s ease;}
+.login-container.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px 36px;max-width:380px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.login-header{margin-bottom:32px;text-align:center;}
+.login-title{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#fff;margin-bottom:8px;}
+.login-subtitle{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.login-form{display:flex;flex-direction:column;gap:20px;}
+.form-group{display:flex;flex-direction:column;gap:8px;}
+.form-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--subtle);}
+.form-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;transition:border-color .2s ease,box-shadow .2s ease;}
+.form-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,170,.1);}
+.form-input::placeholder{color:var(--muted);}
+.login-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:12px 14px;border-radius:8px;font-size:11px;display:none;}
+.login-error.show{display:block;}
+.login-btn{background:linear-gradient(135deg,var(--accent),#00b896);border:none;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:opacity .2s ease,transform .2s ease;letter-spacing:.5px;}
+.login-btn:hover{opacity:.9;transform:translateY(-1px);}
+.login-btn:active{transform:translateY(0);}
+.login-btn:disabled{opacity:.5;cursor:not-allowed;}
 header{background:linear-gradient(135deg,#0a0f1e,#0d1e3d,#091529);border-bottom:1px solid var(--border);padding:32px 48px 28px;position:relative;overflow:hidden;}
 header::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,.08),transparent 70%);pointer-events:none;}
 .header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;}
@@ -94,11 +112,32 @@ main{padding:40px 48px;display:grid;grid-template-columns:1.4fr 1fr;gap:28px;max
 footer{text-align:center;padding:24px;font-size:10px;color:var(--muted);border-top:1px solid var(--border);letter-spacing:1px;margin-top:20px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:1100px){main{grid-template-columns:1fr;}.kpi-strip{grid-template-columns:repeat(2,1fr);padding:0;}.kpi-item:nth-child(2){border-right:none;}.kpi-item:nth-child(3){border-top:1px solid var(--border);}.kpi-item:nth-child(4){border-top:1px solid var(--border);border-right:none;}}
-@media(max-width:640px){header{padding:18px 16px;}.header-top{flex-direction:column;gap:10px;}.brand-name{font-size:26px;}.brand-sub{font-size:10px;}.header-meta{text-align:left;}.periodo-badge{font-size:10px;padding:3px 10px;}main{padding:12px;gap:14px;}.card-header{padding:12px 14px;}.card-title{font-size:12px;}.kpi-strip{padding:0;grid-template-columns:1fr 1fr;}.kpi-item{padding:14px 12px;}.kpi-label{font-size:9px;}.kpi-value{font-size:16px;}.dre-table td{padding:7px 12px;font-size:11px;}.dre-table .row-item td:first-child{padding-left:18px;}.saldo-val{font-size:15px;}.saldo-val.accent{font-size:18px;}.banco-grid{grid-template-columns:1fr;}.desp-bar-wrap{width:50px;}.desp-val{min-width:72px;}footer{font-size:9px;padding:16px 12px;}}
-@media(max-width:380px){.kpi-value{font-size:14px;}.brand-name{font-size:22px;}}
+@media(max-width:640px){header{padding:18px 16px;}.header-top{flex-direction:column;gap:10px;}.brand-name{font-size:26px;}.brand-sub{font-size:10px;}.header-meta{text-align:left;}.periodo-badge{font-size:10px;padding:3px 10px;}main{padding:12px;gap:14px;}.card-header{padding:12px 14px;}.card-title{font-size:12px;}.kpi-strip{padding:0;grid-template-columns:1fr 1fr;}.kpi-item{padding:14px 12px;}.kpi-label{font-size:9px;}.kpi-value{font-size:16px;}.dre-table td{padding:7px 12px;font-size:11px;}.dre-table .row-item td:first-child{padding-left:18px;}.saldo-val{font-size:15px;}.saldo-val.accent{font-size:18px;}.banco-grid{grid-template-columns:1fr;}.desp-bar-wrap{width:50px;}.desp-val{min-width:72px;}.login-box{padding:32px 24px;max-width:90%;}.login-title{font-size:24px;}}
+@media(max-width:380px){.kpi-value{font-size:14px;}.brand-name{font-size:22px;}.login-box{padding:24px 18px;}.login-title{font-size:20px;}}
 </style>
 </head>
 <body>
+<div class="login-container" id="loginContainer">
+  <div class="login-box">
+    <div class="login-header">
+      <div class="login-title">SIM.DIGITAL</div>
+      <div class="login-subtitle">DRE Gerencial</div>
+    </div>
+    <form class="login-form" id="loginForm">
+      <div class="form-group">
+        <label class="form-label">Usuário</label>
+        <input type="text" class="form-input" id="username" placeholder="Digite seu usuário" autofocus>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input type="password" class="form-input" id="password" placeholder="Digite sua senha">
+      </div>
+      <div class="login-error" id="loginError"></div>
+      <button type="submit" class="login-btn">Acessar Dashboard</button>
+    </form>
+  </div>
+</div>
+
 <header>
   <div class="header-top">
     <div class="brand">
@@ -322,5 +361,54 @@ footer{text-align:center;padding:24px;font-size:10px;color:var(--muted);border-t
 <footer>
   Dashboard gerado automaticamente &nbsp;·&nbsp; Dados consolidados Santander + Sicredi &nbsp;·&nbsp; SIM.DIGITAL — REDEMETRO TELECOMUNICAÇÕES LTDA
 </footer>
+
+<script>
+const CORRECT_USERNAME = 'DRESIM';
+const CORRECT_PASSWORD = 'Sim2026*';
+
+const loginForm = document.getElementById('loginForm');
+const loginContainer = document.getElementById('loginContainer');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginError = document.getElementById('loginError');
+
+loginForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value;
+  
+  // Limpar mensagem de erro anterior
+  loginError.classList.remove('show');
+  loginError.textContent = '';
+  
+  if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+    // Login bem-sucedido
+    loginContainer.classList.add('hidden');
+    // Opcional: armazenar sessão no sessionStorage
+    sessionStorage.setItem('authenticated', 'true');
+  } else {
+    // Erro de login
+    loginError.textContent = 'Usuário ou senha incorretos. Tente novamente.';
+    loginError.classList.add('show');
+    passwordInput.value = '';
+    usernameInput.focus();
+  }
+});
+
+// Verificar se já está autenticado (para refresh de página)
+window.addEventListener('load', function() {
+  if (sessionStorage.getItem('authenticated') === 'true') {
+    loginContainer.classList.add('hidden');
+  }
+});
+
+// Permitir tecla Enter para submeter o formulário
+passwordInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    loginForm.submit();
+  }
+});
+</script>
 </body>
 </html>
